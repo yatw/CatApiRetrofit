@@ -25,7 +25,9 @@ interface CatApiService {
 
         fun create(): CatApiService {
             val client = OkHttpClient.Builder()
-                .connectTimeout(10, TimeUnit.DAYS)
+                .connectTimeout(60, TimeUnit.SECONDS)
+                .writeTimeout(120, TimeUnit.SECONDS)
+                .readTimeout(60, TimeUnit.SECONDS) // this line fix the problem
                  //add header to every request
                 .addInterceptor(Interceptor { chain ->
                     val request = chain.request().newBuilder()
